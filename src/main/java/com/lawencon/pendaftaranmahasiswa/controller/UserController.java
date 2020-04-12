@@ -7,14 +7,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.pendaftaranmahasiswa.model.Mahasiswa;
 import com.lawencon.pendaftaranmahasiswa.service.UserService;
 
 @RestController
 @CrossOrigin("*")
-public class UserController {
+public class UserController extends BaseController<Mahasiswa> {
 
 	@Autowired
 	private UserService u_service;
@@ -23,7 +21,7 @@ public class UserController {
 	public ResponseEntity<?> insertCovid(@RequestBody String content) {
 		String pesan = "";
 		try {
-			Mahasiswa mhs = new ObjectMapper().readValue(content, Mahasiswa.class);
+			Mahasiswa mhs = readValue(content, Mahasiswa.class);
 			pesan  = u_service.insertMhs(mhs);
 			return new ResponseEntity<>(pesan, HttpStatus.OK);
 		} catch (Exception e) {

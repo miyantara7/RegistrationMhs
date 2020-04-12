@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.pendaftaranmahasiswa.dao.MahasiswaDao;
 import com.lawencon.pendaftaranmahasiswa.model.Mahasiswa;
+import com.lawencon.pendaftaranmahasiswa.model.Status;
 
 @Service
 @Transactional
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public String insertMhs(Mahasiswa mhs) throws Exception {
-		mhs.setStatus("BELUM");
+		mhs.setStatus(Status.BELUM.name());
 		m_dao.insertMhs(mhs);
 		e_service.sendEmails(mhs);
 		return "Completed";
